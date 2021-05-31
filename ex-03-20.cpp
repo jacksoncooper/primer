@@ -7,7 +7,14 @@ using std::endl;
 using std::vector;
 
 //  0  1  2  3  4
+//  4  3  2  1  0
 // [1, 2, 3, 4, 5]
+
+// 0 + (l - 1 - 0) = l - 1 -> 4
+// 1 + (l - 1 - 2) = l - 2 -> 3
+// 2 + (l - 1 - 4) = l - 3 -> 2
+// 3 + (l - 1 - 6) = l - 4 -> 1
+// 4 + (l - 1 - 8) = l - 5 -> 0
 
 // Expect:
 // 3 5 7 9
@@ -31,7 +38,7 @@ int main()
     // Ignores middle element of vector of odd length.
 
     for (auto i = 0; i < numbers.size() / 2; ++i)
-       cout << numbers[i] + numbers[numbers.size() - i - 1] << " ";
+       cout << numbers[i] + numbers[numbers.size() - 1 - i] << " ";
     cout << endl;
 }
 
