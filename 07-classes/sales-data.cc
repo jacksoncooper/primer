@@ -10,7 +10,8 @@ using std::endl;
 
 using std::string;
 
-class sales_data {
+class sales_data
+{
     // Constructors.
 
     public:
@@ -52,13 +53,15 @@ class sales_data {
 // Ordinarily nonmember functions that are part of the interface of a class
 // should be declared in the same header as the class itself.
 
-sales_data add(const sales_data &sale, const sales_data &other) {
+sales_data add(const sales_data &sale, const sales_data &other)
+{
     sales_data sum = sale;
     sum.combine(other);
     return sum;
 }
 
-ostream &print(ostream &stream, const sales_data &sale) {
+ostream &print(ostream &stream, const sales_data &sale)
+{
     stream << sale.isbn() << " "
            << sale.units_sold << " "
            << sale.revenue << " "
@@ -66,7 +69,8 @@ ostream &print(ostream &stream, const sales_data &sale) {
     return stream;
 }
 
-istream &read(istream &stream, sales_data &sale) {
+istream &read(istream &stream, sales_data &sale)
+{
     double price = 0;
     stream >> sale.book_number >> sale.units_sold >> price;
     sale.revenue = price * sale.units_sold;
@@ -77,7 +81,8 @@ istream &read(istream &stream, sales_data &sale) {
 
 sales_data::sales_data() = default;
 
-sales_data::sales_data(const string &book_number) {
+sales_data::sales_data(const string &book_number)
+{
     this -> book_number = book_number;
 }
 
@@ -89,22 +94,26 @@ sales_data::sales_data(
     units_sold(units_sold),
     revenue(units_sold * price) { };
 
-sales_data::sales_data(istream &stream) {
+sales_data::sales_data(istream &stream)
+{
     read(stream, *this);
 }
 
-double sales_data::average_price() const {
+double sales_data::average_price() const
+{
     if (units_sold) return revenue / units_sold;
     else return 0;
 }
 
-sales_data &sales_data::combine(const sales_data &other) {
+sales_data &sales_data::combine(const sales_data &other)
+{
     units_sold += other.units_sold;
     revenue += other.revenue;
     return *this;
 }
 
-int main() {
+int main()
+{
     string book_number = "0-321-71411-3";
     unsigned units_sold = 12;
     double price_per_copy = 69.99;
