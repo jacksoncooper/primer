@@ -8,6 +8,8 @@ using std::ostream;
 using std::string;
 using std::vector;
 
+class window_manager;
+
 class screen
 {
     public:
@@ -39,6 +41,8 @@ class screen
         pos cursor = 0;
         pos height = 0, width = 0;
         string contents;
+
+    friend window_manager;
 };
 
 class window_manager
