@@ -24,7 +24,10 @@ string &replace_parenthesized(string &expression)
                 ++open_parentheses;
                 break;
             case ')':
-                while (replaced.top() != '(') replaced.pop();
+                while (replaced.top() != '(') {
+                    replaced.pop();
+                    if (replaced.empty()) return expression = "?", expression;
+                }
                 replaced.pop();
                 replaced.push('_');
         }
@@ -43,6 +46,9 @@ string &replace_parenthesized(string &expression)
 
 int main()
 {
-    string my_expression = "( (1 + 3) / 2 ) + 8 - (2 * 4)";
+    string my_expression        = "( ( 1 + 3 ) / 2 ) + 8 - ( 2 * 4 )";
+    string my_second_expression = "(   1 + 3 ) / 2 ) + 8 - ( 2 * 4 )";
+
     cout << replace_parenthesized(my_expression) << endl;
+    cout << replace_parenthesized(my_second_expression) << endl;
 }
