@@ -20,14 +20,14 @@ class TextQuery
 
     TextQuery(std::ifstream &);
 
-    QueryResult query(std::string &);
+    QueryResult query(std::string &); // Should be a reference to constant string.
 
     private:
 
-    typedef std::vector<std::string> text_type;
-    typedef unsigned line_number_type;
-    typedef std::set<line_number_type> line_numbers_type;
-    typedef std::map<std::string, line_numbers_type> map_type;
+    typedef std::vector<std::string> text_type;                // The _type suffix is not a good pattern.
+    typedef unsigned line_number_type;                         // Should be text_type::size_type.
+    typedef std::set<line_number_type> line_numbers_type;      //
+    typedef std::map<std::string, line_numbers_type> map_type; // Should be map from string to shared_ptr<line_numbers_type>.
 
     std::shared_ptr<text_type> lines = std::make_shared<text_type>();
     std::shared_ptr<map_type> word_to_lines = std::make_shared<map_type>();
@@ -71,6 +71,7 @@ TextQuery::TextQuery(std::ifstream &infile) {
 }
 
 QueryResult TextQuery::query(std::string &word) {
+    // Pass in data members instead of making QueryResult a friend.
     return QueryResult(*this, word);
 }
 
@@ -78,6 +79,8 @@ QueryResult::QueryResult(TextQuery &query, std::string word)
     : word(word), lines(query.lines), word_to_lines(query.word_to_lines) { };
 
 std::ostream &print(std::ostream &ostream, QueryResult &result) {
+    // This creates a new entry in the mapping on failure. The query action
+    // should have no affect on the mapping.
     QueryResult::line_numbers_type lines = (*result.word_to_lines)[result.word];
     QueryResult::line_number_type times = lines.size();
 
