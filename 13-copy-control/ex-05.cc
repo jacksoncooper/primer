@@ -1,6 +1,8 @@
 #include <cassert>
 #include <string>
 
+// Warning: No destructor in this exercise!
+
 class HasPointer
 {
     public:
@@ -8,9 +10,9 @@ class HasPointer
     HasPointer(const std::string &a_string = std::string())
         : pointer_to_string(new std::string(a_string)) { }
 
-    HasPointer(const HasPointer &has_pointer) {
-        pointer_to_string = new std::string(*has_pointer.pointer_to_string);
-        integer = has_pointer.integer;
+    HasPointer(const HasPointer &another) {
+        pointer_to_string = new std::string(*another.pointer_to_string);
+        integer = another.integer;
     }
 
     std::string *pointer_to_string;
@@ -27,6 +29,5 @@ int main()
     assert(another_linus.pointer_to_string != linus.pointer_to_string);
     assert(*another_linus.pointer_to_string == *linus.pointer_to_string);
 
-    assert(linus.integer == 0);
     assert(another_linus.integer == 0);
 }

@@ -81,6 +81,7 @@ QueryResult::QueryResult(TextQuery &query, std::string word)
 std::ostream &print(std::ostream &ostream, QueryResult &result) {
     // This creates a new entry in the mapping on failure. The query action
     // should have no affect on the mapping.
+
     QueryResult::line_numbers_type lines = (*result.word_to_lines)[result.word];
     QueryResult::line_number_type times = lines.size();
 
